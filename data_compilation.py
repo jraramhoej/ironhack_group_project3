@@ -1,6 +1,7 @@
 import web_scrape
 import crime_data
 import traffic_data
+import perceived_crime
 import json
 import requests
 import numpy as np
@@ -94,6 +95,10 @@ def compile_data():
 
     # replace NaN with None
     df = df.replace(np.nan, None)
+
+
+    # retrieveing the perceived crime data from Numbeo
+    crime_perceived = get_perceived_crime(list(df['city']))
 
     #save as csv
     df.to_csv("data_out.csv")
