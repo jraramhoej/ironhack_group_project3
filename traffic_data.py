@@ -3,7 +3,7 @@ from herepy import (
     IncidentsCriticalityInt,
 )
 
-traffic_api = TrafficApi(api_key="vxr7fquN9Yb84xhtPeDaUoSTS0fgYMuI7oik4bP6Tws")
+traffic_api = TrafficApi(api_key="MY_API_KEY")
 
 
 def get_incident_count(latitude, longitude):
