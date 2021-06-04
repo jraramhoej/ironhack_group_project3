@@ -30,7 +30,7 @@ def get_coordinates(city, country="Portugal"):
 def get_coord(city):
 
     # define API key
-    key = "AIzaSyBvnU9v8BltYcuFOcLKYCGM-rt21kbpCwU"
+    key = "MY_API_KEY"
 
     # define url
     url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=" + city + "&key=" + key
