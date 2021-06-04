@@ -22,6 +22,6 @@ def get_crimes():
     df.reset_index(level=0, inplace=True)
 
     # rename columns
-    df.rename(columns={"geodsg": "city", "valor": "crimes"}, inplace=True)
+    df.rename(columns={"geodsg": "city", "valor": "crimes_total_count_2020"}, inplace=True)
 
     return df

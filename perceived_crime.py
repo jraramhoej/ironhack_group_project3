@@ -1,68 +1,66 @@
 from bs4 import BeautifulSoup
 import requests
+import time
+import random
 
 
 def get_perceived_crime(list_of_cities):
 
-    names = list_of_cities
-
     results = []
 
-    for name in names:
+    for name in list_of_cities:
+
         try:
-            print(name)   
-        
-            url = 'https://www.numbeo.com/crime/in/' + name
+            # use randomly different times for each request
+            time.sleep(random.random())
 
+            try:
+                # define url
+                url = 'https://www.numbeo.com/crime/in/' + name.replace(" ", "-")
 
+                # make request
+                response = requests.get(url)
 
+                # create soup object
+                soup = BeautifulSoup(response.content, 'html.parser')
 
-            response = requests.get(url)
-            response
+                # find all tables
+                tables = soup.find_all('table', attrs={'class': 'table_indices'})
 
-            soup = BeautifulSoup(response.content)
+                # choose first table
+                table = tables[0]
+            except:
+                # define url
+                url = 'https://www.numbeo.com/crime/in/' + name.replace(" ", "-") + "-Portugal"
 
-            tables = soup.find_all('table', attrs= {'class' : 'table_indices'})
+                # make request
+                response = requests.get(url)
 
-            table = tables[0]
+                # create soup object
+                soup = BeautifulSoup(response.content, 'html.parser')
 
-            crime = table.find_all('td', attrs= {'style' : 'text-align: right'})
+                # find all tables
+                tables = soup.find_all('table', attrs={'class': 'table_indices'})
 
-            Index_table = list(zip(crime, ['Crime index','Safety index']))
+                # choose first table
+                table = tables[0]
 
+            # find the data we are looking for
+            crime = table.find_all('td', attrs={'style': 'text-align: right'})
+
+            # retrieve specific numbers
+            index_table = list(zip(crime, ['crime_index', 'safety_index']))
+
+            # define city name
             data = {'city': name}
 
-            for v,k in Index_table:
+            # loop and add to data dictionary
+            for v, k in index_table:
                 data[k] = v.text.strip('\n')
-        
+
             results.append(data)
 
         except:
-            print(name + '-Portugal')   
-        
-            url = 'https://www.numbeo.com/crime/in/' + name
-
-
-
-
-            response = requests.get(url)
-            response
-
-            soup = BeautifulSoup(response.content)
-
-            tables = soup.find_all('table', attrs= {'class' : 'table_indices'})
-
-            table = tables[0]
-
-            crime = table.find_all('td', attrs= {'style' : 'text-align: right'})
-
-            Index_table = list(zip(crime, ['Crime index','Safety index']))
-
-            data = {'city': name}
-
-            for v,k in Index_table:
-                data[k] = v.text.strip('\n')
-        
-            results.append(data)
+            continue
 
     return results

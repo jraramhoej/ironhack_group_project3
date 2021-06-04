@@ -1,6 +1,20 @@
-import create_db
+import data_compilation
+import database
+import present_data
 
 if __name__ == '__main__':
 
-    # create database
-    create_db.create_db()
+    # compile data
+    #data_compilation.compile_data()
+
+    # add to database
+    #database.create_db()
+
+    # update traffic data
+    #database.update_traffic()
+
+    # fetch and present data from database
+    #present_data.show_final_data()
+
+
+

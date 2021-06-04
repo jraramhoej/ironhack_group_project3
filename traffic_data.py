@@ -1,14 +1,14 @@
 from herepy import (
     TrafficApi,
-    IncidentsCriticalityStr,
     IncidentsCriticalityInt,
-    FlowProximityAdditionalAttributes,
 )
 
-traffic_api = TrafficApi(api_key="ENTER-API-KEY")
+traffic_api = TrafficApi(api_key="vxr7fquN9Yb84xhtPeDaUoSTS0fgYMuI7oik4bP6Tws")
 
 
 def get_incident_count(latitude, longitude):
+
+    # make request to HERE Traffic API
     response = traffic_api.incidents_via_proximity(
         latitude=latitude,
         longitude=longitude,
@@ -18,8 +18,11 @@ def get_incident_count(latitude, longitude):
             IncidentsCriticalityInt.major,
         ],
     )
+
+    # convert response to dictionary
     response_dict = response.as_dict()
 
+    # count number of incidents
     incident_count = len(response_dict["TRAFFICITEMS"]["TRAFFICITEM"])
 
     return incident_count

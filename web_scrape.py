@@ -2,7 +2,9 @@ import requests
 import pandas as pd
 from bs4 import BeautifulSoup
 
+
 def get_population():
+
     # define url
     url = "https://pt.wikipedia.org/wiki/Lista_de_munic%C3%ADpios_de_Portugal_por_popula%C3%A7%C3%A3o"
 
